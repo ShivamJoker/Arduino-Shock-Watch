@@ -1,0 +1,25 @@
+:Author: shivam_veer
+:Email: singhshivamkr@gmail.com
+:Date: 26/12/2018
+:Revision: version#
+:License: Public Domain
+
+= Project: Arduino Shocking Alaram Clock
+
+To follow along all the parts and tutorial 
+watch it on my YouTube - 
+
+
+=== License
+   Copyright [2018] [shivam]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+=== Contributing
+To contribute to this project please contact shivam_veer https://id.arduino.cc/shivam_veer
+
+
