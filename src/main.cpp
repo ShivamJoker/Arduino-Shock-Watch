@@ -128,13 +128,13 @@ void setAlaram()
   }
 
   display.clearDisplay();
-  display.setFont(u8g2_font_ncenB24_tf);
+  display.setFont(u8g2_font_inb16_mf);
   display.setFontMode(0);
   display.setDrawColor(1);
   display.setCursor(10, 0);
   display.print(Al_time);
 
-  display.setFont(u8g2_font_lubB18_tf);
+  display.setFont(u8g2_font_inb16_mf);
 
   display.setCursor(25, 20);
   display.print("Set Alaram");
@@ -157,7 +157,7 @@ void setAlaram()
 
 void openSettings()
 {
-  display.setFont(u8g2_font_lubB18_tf);
+  display.setFont(u8g2_font_inb16_mf);
   display.setCursor(35, 20);
   display.print("Set Time");
 }
@@ -203,7 +203,7 @@ void showTime()
   }
 
   display.clearDisplay();
-  display.setFont(u8g2_font_ncenB24_tf);
+  display.setFont(u8g2_font_inb16_mf);
   display.setFontMode(0);
   display.setDrawColor(1);
   if (hour < 10)
@@ -317,7 +317,7 @@ void shockSettings()
   String shockTimeStr = "Time  " + String(shockTime) + "s";
 
   display.clearDisplay();
-  display.setFont(u8g2_font_ncenB24_tf);
+  display.setFont(u8g2_font_inb16_mf);
   display.setFontMode(0);
   display.setDrawColor(1);
   display.setCursor(0, 0);
