@@ -84,7 +84,7 @@ void setup()
 {
 
   Serial.begin(115200);
-  u8g2.begin();
+  display.begin();
 
   // Initialize the buttons
 
@@ -127,39 +127,39 @@ void setAlaram()
     Al_time = String(Al_hour) + ":" + "0" + String(Al_minute) + " " + String(Al_AMorPM);
   }
 
-  u8g2.clearDisplay();
-  u8g2.setFont(u8g2_font_ncenB24_tf);
-  u8g2.setFontMode(0);
-  u8g2.setDrawColor(1);
-  u8g2.setCursor(10, 0);
-  u8g2.print(Al_time);
+  display.clearDisplay();
+  display.setFont(u8g2_font_ncenB24_tf);
+  display.setFontMode(0);
+  display.setDrawColor(1);
+  display.setCursor(10, 0);
+  display.print(Al_time);
 
-  u8g2.setFont(u8g2_font_lubB18_tf);
+  display.setFont(u8g2_font_lubB18_tf);
 
-  u8g2.setCursor(25, 20);
-  u8g2.print("Set Alaram");
+  display.setCursor(25, 20);
+  display.print("Set Alaram");
   if (editHH)
   {
-    u8g2.setCursor(10, 10);
+    display.setCursor(10, 10);
   }
   else if (editMM)
   {
-    u8g2.setCursor(50, 10);
+    display.setCursor(50, 10);
   }
   else if (editAmPm)
   {
-    u8g2.setCursor(80, 10);
+    display.setCursor(80, 10);
   }
-  u8g2.print("__");
+  display.print("__");
 
-  u8g2.display();
+  display.display();
 }
 
 void openSettings()
 {
-  u8g2.setFont(u8g2_font_lubB18_tf);
-  u8g2.setCursor(35, 20);
-  u8g2.print("Set Time");
+  display.setFont(u8g2_font_lubB18_tf);
+  display.setCursor(35, 20);
+  display.print("Set Time");
 }
 
 // function to show and maintain the time
@@ -202,21 +202,21 @@ void showTime()
     time = String(hour) + ":" + "0" + String(minute) + ":" + "0" + String(second);
   }
 
-  u8g2.clearDisplay();
-  u8g2.setFont(u8g2_font_ncenB24_tf);
-  u8g2.setFontMode(0);
-  u8g2.setDrawColor(1);
+  display.clearDisplay();
+  display.setFont(u8g2_font_ncenB24_tf);
+  display.setFontMode(0);
+  display.setDrawColor(1);
   if (hour < 10)
   {
-    u8g2.setCursor(5, 0);
+    display.setCursor(5, 0);
   }
   else
   {
-    u8g2.setCursor(0, 0);
+    display.setCursor(0, 0);
   }
-  u8g2.print(time);
-  u8g2.setCursor(100, 0);
-  u8g2.print(AMorPM);
+  display.print(time);
+  display.setCursor(100, 0);
+  display.print(AMorPM);
   if (settingsMode)
   {
     openSettings();
@@ -225,35 +225,35 @@ void showTime()
   {
     if (editHH)
     {
-      u8g2.setCursor(1, 10);
+      display.setCursor(1, 10);
     }
     else if (editMM)
     {
-      u8g2.setCursor(40, 10);
+      display.setCursor(40, 10);
     }
     else if (editAmPm)
     {
-      u8g2.setCursor(100, 10);
+      display.setCursor(100, 10);
     }
-    u8g2.print("__");
+    display.print("__");
   }
   if (!settingsMode)
   {
     if (ledVoltage > 3.5)
     {
-      u8g2.drawXBM(5, 19, 13, 24, BatteryCharging);
+      display.drawXBM(5, 19, 13, 24, BatteryCharging);
     }
     else if (batteryVoltage > 4)
     {
-      u8g2.drawXBM(5, 19, 13, 24, BatteryFull);
+      display.drawXBM(5, 19, 13, 24, BatteryFull);
     }
     else if (batteryVoltage < 3.7)
     {
-      u8g2.drawXBM(5, 19, 13, 24, BatteryDown);
+      display.drawXBM(5, 19, 13, 24, BatteryDown);
     }
   }
 
-  u8g2.display();
+  display.display();
 }
 
 // increase time every second
@@ -316,13 +316,13 @@ void shockSettings()
   // make shock strings
   String shockTimeStr = "Time  " + String(shockTime) + "s";
 
-  u8g2.clearDisplay();
-  u8g2.setFont(u8g2_font_ncenB24_tf);
-  u8g2.setFontMode(0);
-  u8g2.setDrawColor(1);
-  u8g2.setCursor(0, 0);
-  u8g2.print(shockTimeStr);
-  u8g2.display();
+  display.clearDisplay();
+  display.setFont(u8g2_font_ncenB24_tf);
+  display.setFontMode(0);
+  display.setDrawColor(1);
+  display.setCursor(0, 0);
+  display.print(shockTimeStr);
+  display.display();
 }
 
 // this is the loop
@@ -508,8 +508,8 @@ void loop()
   {
     DpreviousMillis = DcurrentMillis;
     oledOn = false;
-    u8g2.clearDisplay();
-    u8g2.display();
+    display.clearDisplay();
+    display.display();
   };
 
   if (alarmMode)
