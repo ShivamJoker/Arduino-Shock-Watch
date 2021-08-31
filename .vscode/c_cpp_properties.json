@@ -1,0 +1,42 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/Users/shivam/Documents/PlatformIO/Projects/Arduino-Shock-Watch/include",
+                "/Users/shivam/Documents/PlatformIO/Projects/Arduino-Shock-Watch/src",
+                "/Users/shivam/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/Users/shivam/Documents/PlatformIO/Projects/Arduino-Shock-Watch/include",
+                    "/Users/shivam/Documents/PlatformIO/Projects/Arduino-Shock-Watch/src",
+                    "/Users/shivam/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "F_CPU=8000000L",
+                "PLATFORMIO=50101",
+                "ARDUINO_AVR_PRO",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/Users/shivam/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
