@@ -53,7 +53,7 @@ const long Dinterval = 10000;
 
 Button DecreaseBtn(5);
 Button ModeBtn(2);
-Button IncreaseBtn(8);
+Button IncreaseBtn(3);
 
 // Shock pin and buzzer pin
 
@@ -157,7 +157,7 @@ void setAlaram()
 
 void openSettings()
 {
-  display.setFont(u8g2_font_inb16_mf);
+  display.setFont(u8g2_font_8x13_tf);
   display.setCursor(35, 20);
   display.print("Set Time");
 }
@@ -204,37 +204,41 @@ void showTime()
 
   display.clearBuffer();
   display.setFont(u8g2_font_VCR_OSD_tu);
-  display.setFontMode(0);
-  display.setDrawColor(1);
+
+  uint8_t fontHeight = 18;
   if (hour < 10)
   {
-    display.setCursor(5, 18);
+    display.setCursor(5, fontHeight);
   }
   else
   {
-    display.setCursor(0, 18);
+    display.setCursor(0, fontHeight);
   }
   display.print(time);
-  display.setCursor(100, 18);
+  display.setCursor(100, fontHeight);
   display.print(AMorPM);
   if (settingsMode)
   {
-    openSettings();
+    // openSettings();
   }
   if (settingsMode)
   {
     if (editHH)
     {
-      display.setCursor(1, 10);
+      display.setCursor(1, fontHeight + 2);
     }
     else if (editMM)
     {
-      display.setCursor(40, 10);
+      display.setCursor(40, fontHeight + 2);
     }
     else if (editAmPm)
     {
-      display.setCursor(100, 10);
+      display.setCursor(100, fontHeight + 2);
     }
+    display.setFont(u8g2_font_8x13_tf);
+    display.print("__");
+    display.setCursor(35, 32);
+    display.print("Set Time");
     display.print("__");
   }
   // display.setFont(u8g2_font_ncenB14_tr);
