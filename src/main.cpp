@@ -7,7 +7,7 @@
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C display(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
 //Set the time of now
-unsigned int hour = 8;
+unsigned int hour = 10;
 unsigned int minute = 2;
 unsigned int second = 50;
 
@@ -52,8 +52,8 @@ const long Dinterval = 10000;
 // Button Pins
 
 Button DecreaseBtn(5);
-Button ModeBtn(6);
-Button IncreaseBtn(7);
+Button ModeBtn(2);
+Button IncreaseBtn(8);
 
 // Shock pin and buzzer pin
 
@@ -70,9 +70,9 @@ const unsigned char BatteryCharging[] PROGMEM = {
 
 // 'battery full', 24x13px
 const unsigned char BatteryFull[] PROGMEM = {
-    0x7f, 0xff, 0xf8, 0xf9, 0xef, 0x3c, 0xf9, 0xef, 0x3c, 0xf9, 0xef, 0x3c, 0xf9, 0xef, 0x3f, 0xf9,
-    0xef, 0x3f, 0xf9, 0xef, 0x3f, 0xf9, 0xef, 0x3f, 0xf9, 0xef, 0x3f, 0xf9, 0xef, 0x3c, 0xf9, 0xef,
-    0x3c, 0xf9, 0xef, 0x3c, 0x7f, 0xff, 0xf8};
+    0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0, 0x00, 0x00, 0x60, 0x00, 0x00, 0x20, 0x3f,
+    0xff, 0x00, 0x3f, 0xff, 0x00, 0x3f, 0xff, 0x80, 0x3f, 0xff, 0x00, 0x3f, 0xff, 0x00, 0x00, 0x00,
+    0x20, 0x00, 0x00, 0x60, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0};
 
 // 'battery down', 24x13px
 const unsigned char BatteryDown[] PROGMEM = {
@@ -202,20 +202,20 @@ void showTime()
     time = String(hour) + ":" + "0" + String(minute) + ":" + "0" + String(second);
   }
 
-  display.clearDisplay();
-  display.setFont(u8g2_font_inb16_mf);
+  display.clearBuffer();
+  display.setFont(u8g2_font_VCR_OSD_tu);
   display.setFontMode(0);
   display.setDrawColor(1);
   if (hour < 10)
   {
-    display.setCursor(5, 0);
+    display.setCursor(5, 18);
   }
   else
   {
-    display.setCursor(0, 0);
+    display.setCursor(0, 18);
   }
   display.print(time);
-  display.setCursor(100, 0);
+  display.setCursor(100, 18);
   display.print(AMorPM);
   if (settingsMode)
   {
@@ -237,23 +237,25 @@ void showTime()
     }
     display.print("__");
   }
-  if (!settingsMode)
-  {
-    if (ledVoltage > 3.5)
-    {
-      display.drawXBM(5, 19, 13, 24, BatteryCharging);
-    }
-    else if (batteryVoltage > 4)
-    {
-      display.drawXBM(5, 19, 13, 24, BatteryFull);
-    }
-    else if (batteryVoltage < 3.7)
-    {
-      display.drawXBM(5, 19, 13, 24, BatteryDown);
-    }
-  }
+  // display.setFont(u8g2_font_ncenB14_tr);
+  // display.drawXBM(0, 0, 19, 15, BatteryFull);
+  // if (!settingsMode)
+  // {
+  //   if (ledVoltage > 3.5)
+  //   {
+  //     display.drawXBM(5, 32, 13, 24, BatteryCharging);
+  //   }
+  //   else if (batteryVoltage > 4)
+  //   {
+  //     display.drawXBM(5, 32, 13, 24, BatteryFull);
+  //   }
+  //   else if (batteryVoltage < 3.7)
+  //   {
+  //     display.drawXBM(5, 32, 13, 24, BatteryDown);
+  //   }
+  // }
 
-  display.display();
+  display.updateDisplay();
 }
 
 // increase time every second
@@ -499,7 +501,7 @@ void loop()
 
   if (ModeBtn.wasPressed() || IncreaseBtn.wasPressed() || DecreaseBtn.wasPressed() && !oledOn)
   {
-    oledOn = true;
+    display.setPowerSave(0);
     DpreviousMillis = DcurrentMillis;
   }
 
@@ -507,9 +509,7 @@ void loop()
   if (DcurrentMillis - DpreviousMillis >= Dinterval && oledOn && !settingsMode)
   {
     DpreviousMillis = DcurrentMillis;
-    oledOn = false;
-    display.clearDisplay();
-    display.display();
+    display.setPowerSave(1);
   };
 
   if (alarmMode)
