@@ -60,25 +60,14 @@ Button IncreaseBtn(3);
 #define buzzerPin 11
 #define shockPin 10
 
-// Battery bitmaps
-
-// Battery charging
-const unsigned char BatteryCharging[] PROGMEM = {
-    0x7f, 0xff, 0xf8, 0x80, 0x00, 0x06, 0x80, 0x00, 0x02, 0x80, 0x00, 0x06, 0x80, 0x30, 0x03, 0x86,
-    0x3c, 0x03, 0x83, 0xff, 0x03, 0x80, 0xff, 0x83, 0x80, 0x30, 0x03, 0x80, 0x00, 0x06, 0x80, 0x00,
-    0x02, 0x80, 0x00, 0x06, 0x7f, 0xff, 0xfc};
-
-// 'battery full', 24x13px
-const unsigned char BatteryFull[] PROGMEM = {
-    0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0, 0x00, 0x00, 0x60, 0x00, 0x00, 0x20, 0x3f,
-    0xff, 0x00, 0x3f, 0xff, 0x00, 0x3f, 0xff, 0x80, 0x3f, 0xff, 0x00, 0x3f, 0xff, 0x00, 0x00, 0x00,
-    0x20, 0x00, 0x00, 0x60, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0, 0xff, 0xff, 0xe0};
-
-// 'battery down', 24x13px
-const unsigned char BatteryDown[] PROGMEM = {
-    0x7f, 0xff, 0xf8, 0x80, 0x00, 0x06, 0x80, 0x00, 0x02, 0x80, 0x00, 0x06, 0x80, 0x00, 0x03, 0x80,
-    0x00, 0x03, 0x80, 0x00, 0x03, 0x80, 0x00, 0x03, 0x80, 0x00, 0x03, 0x80, 0x00, 0x06, 0x80, 0x00,
-    0x02, 0x80, 0x00, 0x06, 0x7f, 0xff, 0xfc};
+// Battery font
+const uint8_t battery19[185] U8G2_FONT_SECTION("battery19") = 
+  "\10\0\3\3\4\5\1\1\5\10\23\0\0\23\0\23\0\0\0\0\0\0\234\60\13\70\317\42\35\304\372\377"
+  "\371 \61\17\70\317\42\35\304\372\177\241H(\342\203\0\62\23\70\317\42\35\304\372/\24\11E,\241H"
+  "(\342\203\0\63\27\70\317\42\35\304\372\205\42\241\210%\24\11E,\241H(\342\203\0\64\33\70\317\42"
+  "\35\304\272P$\24\261\204\42\241\210%\24\11E,\241H(\342\203\0\65\37\70\317\42\35\304\22\212\204"
+  "\42\226P$\24\261\204\42\241\210%\24\11E,\241H(\342\203\0\66\27\70\317\42\35\304\332B\262\220"
+  "^(\22\212H\247\230(&V>\10\67\5\0\316\0\0\0\0\4\377\377\0";
 
 void setup()
 {
@@ -241,23 +230,27 @@ void showTime()
     display.print("Set Time");
     display.print("__");
   }
-  // display.setFont(u8g2_font_ncenB14_tr);
-  // display.drawXBM(0, 0, 19, 15, BatteryFull);
-  // if (!settingsMode)
-  // {
-  //   if (ledVoltage > 3.5)
-  //   {
-  //     display.drawXBM(5, 32, 13, 24, BatteryCharging);
-  //   }
-  //   else if (batteryVoltage > 4)
-  //   {
-  //     display.drawXBM(5, 32, 13, 24, BatteryFull);
-  //   }
-  //   else if (batteryVoltage < 3.7)
-  //   {
-  //     display.drawXBM(5, 32, 13, 24, BatteryDown);
-  //   }
-  // }
+  display.setFont(battery19);
+  // Battery Full
+  display.drawGlyph(0, 0, 0x0035);
+  if (!settingsMode)
+  {
+    if (ledVoltage > 3.5)
+    {
+      // Battery Charging
+      display.drawGlyph(5, 32, 0x0036);
+    }
+    else if (batteryVoltage > 4)
+    {
+      // Battery Full
+      display.drawGlyph(5, 32, 0x0035);
+    }
+    else if (batteryVoltage < 3.7)
+    {
+      // Battery Down
+      display.drawGlyph(5, 32, 0x0030);
+    }
+  }
 
   display.updateDisplay();
 }
